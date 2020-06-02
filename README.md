@@ -1,1 +1,1 @@
-
+Michael and Sarai working on Project 2 to determine if any correlations can be found in wind forecasting and energy pricing in Texas.  Due to the highly volitile nature of prediciting wind load energy traders and forecasters are often wrong in planning economic scenarios to buy or sell electricty for load.
