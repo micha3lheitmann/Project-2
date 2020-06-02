@@ -36,10 +36,11 @@ d3.csv("data.csv", function(err, myData) {
   // Create scale functions
   var yLinearScale = d3.scaleLinear().range([height, 0]);
 
-  var xLinearScale = d3.scaleLinear().range([0, width]);
+  var xBinaryScale = d3.scaleLog().range([0, width]);
+
 
   // Create axis functions
-  var bottomAxis = d3.axisBottom(xLinearScale);
+  var bottomAxis = d3.axisBottom(xBinaryScale).ticks(20,",.1s");
   var leftAxis = d3.axisLeft(yLinearScale);
 
   // Variables store minimum and maximum values in a column in data.csv
@@ -75,7 +76,7 @@ d3.csv("data.csv", function(err, myData) {
   findMinAndMax(currentAxisLabelX);
 
   // Set domain of an axis to extend from min to max values of the data column
-  xLinearScale.domain([xMin, xMax]);
+  xBinaryScale.domain([xMin, xMax]);
   yLinearScale.domain([0, yMax]);
 
   // Initializes tooltip
@@ -120,7 +121,7 @@ d3.csv("data.csv", function(err, myData) {
     .enter()
     .append("circle")
     .attr("cx", function(data, index) {
-      return xLinearScale(Number(data[currentAxisLabelX]));
+      return xBinaryScale(Number(data[currentAxisLabelX]));
     })
     .attr("cy", function(data, index) {
       return yLinearScale(Number(data.Wind));
@@ -150,7 +151,7 @@ d3.csv("data.csv", function(err, myData) {
     .on("mouseout", function(data) {
       toolTip.hide(data)})
     .attr("x", function(data, index) {
-      return xLinearScale(Number(data[currentAxisLabelX]));
+      return xBinaryScale(Number(data[currentAxisLabelX]));
     })
     .attr("y", function(data, index) {
       return yLinearScale(Number(data.Wind))+4;
@@ -235,7 +236,7 @@ d3.csv("data.csv", function(err, myData) {
       // Call findMinAndMax() to define the min and max domain values.
       findMinAndMax(currentAxisLabelX);
       // Set the domain for the x-axis
-      xLinearScale.domain([xMin, xMax]);
+      xBinaryScale.domain([xMin, xMax]);
       // Create a transition effect for the x-axis
       svg
         .select(".x-axis")
@@ -252,7 +253,7 @@ d3.csv("data.csv", function(err, myData) {
           .transition()
           // .ease(d3.easeBounce)
           .attr("cx", function(data, index) {
-            return xLinearScale(Number(data[currentAxisLabelX]));
+            return xBinaryScale(Number(data[currentAxisLabelX]));
           })
           .duration(1800);
       });
@@ -263,7 +264,7 @@ d3.csv("data.csv", function(err, myData) {
           .transition()
           // .ease(d3.easeBounce)
           .attr("x", function(data, index) {
-            return xLinearScale(Number(data[currentAxisLabelX]));
+            return xBinaryScale(Number(data[currentAxisLabelX]));
           })
           .duration(1800);
       });
